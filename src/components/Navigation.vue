@@ -4,8 +4,8 @@
       v-icon list
     v-navigation-drawer(temporary v-model='drawer' dark fixed)
       v-list
-        v-list-tile(v-for='item in data' key='item.id.videoId'
-          @click='itemSelected(item.id.videoId)')
+        v-list-tile(v-for='item in data' key='item.contentDetails.videoId'
+          @click='itemSelected(item.contentDetails.videoId)')
           v-list-tile-content(v-text='item.snippet.title')
 </template>
 
@@ -29,12 +29,7 @@
   }
 </script>
 
-
-<!-- methods: {
-  itemSelected (item) {
-    this.src = this.embed + item.id.videoId + this.brand
-    this.drawer = false
-  },
-  btn () {
-    this.drawer = !this.drawer
-  } -->
+<style lang='stylus'>
+  #navigation
+    // border 1px solid green
+</style>

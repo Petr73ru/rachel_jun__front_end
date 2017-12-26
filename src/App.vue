@@ -14,7 +14,7 @@ export default {
   data () {
     return {
       channelData: [],
-      src: '',
+      src: null,
       width: null,
       embed: 'https://www.youtube.com/embed/',
       brand: '?modestbranding=1&controls=0&rel=0&showinfo=0'
@@ -34,6 +34,32 @@ export default {
   methods: {
     changeVideoId (id) {
       this.src = this.embed + id + this.brand
+    },
+    getPlaylistId (channelId) {
+      // channelId to playlist 'uploaded' id
+      // 'UCOgGAfSUy5LvEyVS_LF5kdw' to 'UUOgGAfSUy5LvEyVS_LF5kdw'
+      // 'UU...' to 'UC...'
+    },
+    createLink (playlistId, pageToken) {
+      let url = 'https://www.googleapis.com/youtube/v3/playlistItems'
+      let query = [
+        'fields=items(contentDetails(videoId%2CvideoPublishedAt)%2Csnippet(description%2Ctitle))%2CnextPageToken%2CpageInfo%2CprevPageToken',
+        'part=snippet%2CcontentDetails',
+        'maxResults=50',
+        pageToken ? 'pageToken=' + pageToken : null,
+        playlistId ? 'playlistId=' + playlistId : null,
+        'key=AIzaSyAEc6reXtKwVemgtV9MypLcOHE2dnovLMY'
+      ]
+      console.log(url + '?' + query.join('&'))
+      axios(url + '?' + query.join('&')).then(res => {
+        this.channelData = this.channelData.concat(res.data.items)
+        this.src === null
+          ? this.src = this.embed + this.channelData[0].contentDetails.videoId + this.brand
+          : null
+        res.data.nextPageToken
+          ? this.createLink(playlistId, res.data.nextPageToken)
+          : null
+      })
     }
   },
   components: {
@@ -42,13 +68,10 @@ export default {
     appMain : Main
   },
   created () {
-    axios('https://rachel-jun-channel.herokuapp.com/')
-      .then(res => {
-        this.src = this.embed + res.data[0].id.videoId + this.brand
-        return this.channelData = res.data
-      })
-    let Jolly = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=50&pageToken=CDIQAQ&playlistId=UUOgGAfSUy5LvEyVS_LF5kdw&fields=items(contentDetails(videoId%2CvideoPublishedAt)%2Csnippet(description%2Ctitle))%2CnextPageToken%2CpageInfo%2CprevPageToken&key=AIzaSyAEc6reXtKwVemgtV9MypLcOHE2dnovLMY'
-    axios(Jolly).then(console.log)
+    let Jolly = 'UUOgGAfSUy5LvEyVS_LF5kdw' // playlist ID
+    let Shifman = 'UUvjgXvBlbQiydffZU7m1_aw'
+    let GeeksforGeeks = 'UU0RhatS1pyxInC00YKjjBqQ'
+    this.createLink(GeeksforGeeks)
   }
 }
 

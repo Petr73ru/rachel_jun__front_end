@@ -18,7 +18,7 @@
     display flex
     justify-content center
     align-items center
-    border 1px solid red
+    // border 1px solid red
   #ytplayer
     display block
   // TODO media-queries && paddings;

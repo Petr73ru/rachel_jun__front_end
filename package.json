@@ -5,8 +5,8 @@
   "author": "Petr73ru <tank73ru@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "dev": "webpack-dev-server --inline --hot",
+    "build": "webpack --progress --hide-modules"
   },
   "dependencies": {
     "axios": "^0.17.1",
