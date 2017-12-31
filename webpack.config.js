@@ -18,6 +18,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.coffee$/,
+        use: [ 'coffee-loader' ],
+        include: /node_modules/
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -25,6 +30,11 @@ module.exports = {
           }
           // other vue-loader options go here
         }
+      },
+      {
+        test: /\.coffee$/,
+        loader: 'coffee-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.js$/,

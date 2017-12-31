@@ -4,7 +4,7 @@
       v-icon list
     v-navigation-drawer(temporary v-model='drawer' dark fixed)
       v-list
-        v-list-tile(v-for='item in data' key='item.contentDetails.videoId'
+        v-list-tile(v-for='item in data', :key='item.contentDetails.videoId',
           @click='itemSelected(item.contentDetails.videoId)')
           v-list-tile-content(v-text='item.snippet.title')
 </template>

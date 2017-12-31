@@ -1,5 +1,5 @@
 <template lang="jade">
-  div#header 
+  div#header
     h1 LOL: Hi from a Header!
 </template>
 
@@ -9,7 +9,7 @@
     height 6em
     text-align center
     // border 1px solid blue
-  h1 
+  h1
    color orange
    margin-top 0.4em
 </style>
