@@ -3,11 +3,13 @@
     iframe#ytplayer(
       :src='src', :width="width", :height="height" frameborder="0"
       allowfullscreen)
+    div#description
+      p(v-text='description')
 </template>
 
 <script>
   export default {
-    props: ['src', 'width', 'height']
+    props: ['src', 'description','width', 'height']
   }
 </script>
 
@@ -21,5 +23,4 @@
     // border 1px solid red
   #ytplayer
     display block
-  // TODO media-queries && paddings;
 </style>

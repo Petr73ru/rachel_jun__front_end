@@ -1,7 +1,13 @@
 <template lang="jade">
   div#header
-    h1 LOL: Hi from a Header!
+    h1(v-text='title')
 </template>
+
+<script>
+  export default {
+    props: ['title']
+  }
+</script>
 
 <style lang="stylus">
   #header
@@ -12,4 +18,6 @@
   h1
    color orange
    margin-top 0.4em
+  h2
+    color white
 </style>

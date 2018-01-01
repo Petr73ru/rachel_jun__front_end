@@ -5,7 +5,7 @@
     v-navigation-drawer(temporary v-model='drawer' dark fixed)
       v-list
         v-list-tile(v-for='item in data', :key='item.contentDetails.videoId',
-          @click='itemSelected(item.contentDetails.videoId)')
+          @click=`itemSelected(item)`)
           v-list-tile-content(v-text='item.snippet.title')
 </template>
 
@@ -21,8 +21,8 @@
       btn () {
         this.drawer = !this.drawer
       },
-      itemSelected(id) {
-        this.$emit('itemSelected', id)
+      itemSelected(item) {
+        this.$emit('itemSelected', item)
         this.drawer = false
       }
     }

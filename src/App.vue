@@ -1,8 +1,9 @@
 <template lang='jade'>
   v-app(dark)
-    app-header
+    app-header(:title='title')
     app-navigation(:data='videos', @itemSelected='changeVideoId')
-    app-main(:src='src', :width='width', :height='height')
+    app-main(:src='src', :description='description',
+             :width='width', :height='height')
 </template>
 <!-- 320:180, 480:270, 720:405, 1080:608 -->
 <script>
@@ -20,7 +21,10 @@ export default {
       src: null,
       width: null,
       embed: 'https://www.youtube.com/embed/',
-      brand: '?modestbranding=1&controls=0&rel=0&showinfo=0'
+      brand: '?modestbranding=1&controls=0&rel=0&showinfo=0',
+
+      title: '',
+      description: ''
     }
   },
   computed: {
@@ -35,8 +39,10 @@ export default {
     }
   },
   methods: {
-    changeVideoId (id) {
-      this.src = this.embed + id + this.brand
+    changeVideoId (item) {
+      this.src = this.embed + item.contentDetails.videoId + this.brand
+      this.title = item.snippet.title
+      this.description = item.snippet.description
     },
     getChannelVideos (playlistId, pageToken) {
       let url = 'https://www.googleapis.com/youtube/v3/playlistItems'
@@ -53,10 +59,12 @@ export default {
       url = url + '?' + query.join('&')
       axios(url).then(res => {
         this.videos = this.videos.concat(res.data.items)
-        this.src === null
-          ? this.src = this.embed + this.videos[0]
+        if (this.src === null) {
+          this.src = this.embed + this.videos[0]
             .contentDetails.videoId + this.brand
-          : null
+          this.title = this.videos[0].snippet.title
+          this.description = this.videos[0].snippet.description
+        }
         res.data.nextPageToken
           ? this.getChannelVideos(playlistId, res.data.nextPageToken)
           : null
