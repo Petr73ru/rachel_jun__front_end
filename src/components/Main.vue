@@ -7,20 +7,26 @@
       p(v-text='description')
 </template>
 
-<script>
-  export default {
+<script lang='coffee'>
+  export default
     props: ['src', 'description','width', 'height']
-  }
+
 </script>
 
 <style lang='stylus' scoped>
   #main
     width 100%
     height 100%
+
     display flex
+    flex-wrap wrap
+
     justify-content center
     align-items center
+
     // border 1px solid red
-  #ytplayer
-    display block
+    #ytplayer
+      display block
+    #description
+      text-align center
 </style>

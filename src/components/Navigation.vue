@@ -9,24 +9,16 @@
           v-list-tile-content(v-text='item.snippet.title')
 </template>
 
-<script>
-  export default {
-    props: ['data'],
-    data () {
-      return {
-        drawer: false
-      }
-    },
-    methods: {
-      btn () {
-        this.drawer = !this.drawer
-      },
-      itemSelected(item) {
-        this.$emit('itemSelected', item)
-        this.drawer = false
-      }
-    }
-  }
+<script lang='coffee'>
+  export default
+    props: ['data']
+    data: ->
+      drawer: off
+    methods:
+      btn: -> @drawer = not @drawer
+      itemSelected: (item) ->
+        @.$emit 'itemSelected', item
+        @drawer = off
 </script>
 
 <style lang='stylus'>

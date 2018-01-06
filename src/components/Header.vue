@@ -3,10 +3,10 @@
     h1(v-text='title')
 </template>
 
-<script>
-  export default {
-    props: ['title']
-  }
+<script lang='coffee'>
+export default  
+  props: ['title']
+  
 </script>
 
 <style lang="stylus">
